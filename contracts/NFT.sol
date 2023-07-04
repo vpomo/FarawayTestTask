@@ -22,13 +22,12 @@ contract NFT is INFT, Ownable, ERC721Enumerable {
     }
 
     constructor(
-        address _controller,
+        string memory _name,
+        string memory _symbol,
         string memory _baseTokenURI
-    ) ERC721("Faraway NFT", "Faraway.NFT") {
-        _transferOwnership(_msgSender());
-        //ERC721("Faraway NFT", "Faraway.NFT");
+    ) ERC721(_name, _symbol) {
         baseTokenURI = _baseTokenURI;
-        controller = _controller;
+        controller = _msgSender();
         idCounter = 1;
     }
 
@@ -36,7 +35,7 @@ contract NFT is INFT, Ownable, ERC721Enumerable {
         return "1";
     }
 
-    function setBaseTokenURI(string memory _baseTokenURI) external override onlyOwner {
+    function setBaseTokenURI(string memory _baseTokenURI) external override onlyController {
         baseTokenURI = _baseTokenURI;
     }
 
