@@ -1082,16 +1082,30 @@ type CheckchainTokenMinted struct {
 // FilterTokenMinted is a free log retrieval operation binding the contract event 0xf36e967fc37dc0a7e0a1e6d328aac7e945dfcadb00d552d6bc291bdc1b5f80d3.
 //
 // Solidity: event TokenMinted(address indexed collection, address indexed owner, string tokenUri, uint256 tokenId)
-func (_Checkchain *CheckchainFilterer) FilterTokenMinted(opts *bind.FilterOpts, collection []common.Address, owner []common.Address) (*CheckchainTokenMintedIterator, error) {
+//func (_Checkchain *CheckchainFilterer) FilterTokenMinted(opts *bind.FilterOpts, collection []common.Address, owner []common.Address) (*CheckchainTokenMintedIterator, error) {
+//
+//	var collectionRule []interface{}
+//	for _, collectionItem := range collection {
+//		collectionRule = append(collectionRule, collectionItem)
+//	}
+//	var ownerRule []interface{}
+//	for _, ownerItem := range owner {
+//		ownerRule = append(ownerRule, ownerItem)
+//	}
+//
+//	logs, sub, err := _Checkchain.contract.FilterLogs(opts, "TokenMinted", collectionRule, ownerRule)
+//	if err != nil {
+//		return nil, err
+//	}
+//	return &CheckchainTokenMintedIterator{contract: _Checkchain.contract, event: "TokenMinted", logs: logs, sub: sub}, nil
+//}
+
+func (_Checkchain *CheckchainFilterer) FilterTokenMinted(opts *bind.FilterOpts, collection common.Address) (*CheckchainTokenMintedIterator, error) {
 
 	var collectionRule []interface{}
-	for _, collectionItem := range collection {
-		collectionRule = append(collectionRule, collectionItem)
-	}
+	collectionRule = append(collectionRule, collection)
+
 	var ownerRule []interface{}
-	for _, ownerItem := range owner {
-		ownerRule = append(ownerRule, ownerItem)
-	}
 
 	logs, sub, err := _Checkchain.contract.FilterLogs(opts, "TokenMinted", collectionRule, ownerRule)
 	if err != nil {

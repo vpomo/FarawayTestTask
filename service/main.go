@@ -18,16 +18,21 @@ func main() {
 
 	r := checkchain.NewHttpServer()
 	srv := &http.Server{
-		Addr: "0.0.0.0:8080",
+		Addr: "0.0.0.0:8082",
 		// Good practice to set timeouts to avoid Slowloris attacks.
 		WriteTimeout: time.Second * 15,
 		ReadTimeout:  time.Second * 15,
 		IdleTimeout:  time.Second * 60,
-		Handler:      r,
+		Handler:      r, // Pass our instance of gorilla/mux in.
 	}
-	log.Info("Server listening on 8082 port ...")
+	go func() {
+		log.Info("Server listening on 8082 port ...")
+		if err := srv.ListenAndServe(); err != nil {
+			log.Error(err)
+		}
+	}()
 
-	go checkchain.GetCollections()
+	go checkchain.GetCollectionsCreated()
 
 	c := make(chan os.Signal, 1)
 	signal.Notify(c, os.Interrupt)

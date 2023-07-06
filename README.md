@@ -17,4 +17,12 @@ Mints a new NFT with specified collection address (only created on 3.a), tokenId
 =============================================================================================
 
 ## These are comments on the completion of the task 
+
+This is deployed smart contract:
 https://mumbai.polygonscan.com/address/0x652ea34de1926fc668625a4eb68a80848faa78ed#writeContract
+
+
+These are the endpoints of the service:
+http://127.0.0.1:8082/collections
+http://127.0.0.1:8082/tokenminted/{collectionAddress}
+
