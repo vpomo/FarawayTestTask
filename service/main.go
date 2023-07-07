@@ -10,6 +10,8 @@ import (
 	"time"
 )
 
+//var ProviderUrl string
+
 func main() {
 	log.SetFormatter(&log.TextFormatter{
 		ForceColors:   true,
@@ -32,8 +34,6 @@ func main() {
 		}
 	}()
 
-	go checkchain.GetCollectionsCreated()
-
 	c := make(chan os.Signal, 1)
 	signal.Notify(c, os.Interrupt)
 	<-c
@@ -47,5 +47,6 @@ func main() {
 	}
 
 	log.Info("shutting down")
+	checkchain.Client.Close()
 	os.Exit(0)
 }
