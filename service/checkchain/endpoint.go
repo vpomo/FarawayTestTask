@@ -9,6 +9,7 @@ import (
 
 func HomeHandler(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
+	w.Write([]byte("Service OK!!!"))
 }
 
 func CollectionsHandler(w http.ResponseWriter, r *http.Request) {
@@ -27,7 +28,13 @@ func TokenMintedHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	vars := mux.Vars(r)
 
-	jsonResponse, jsonError := json.Marshal(GetTokenMinted(vars["collectionAddress"]))
+	tokenMinted := GetTokenMinted(vars["collectionAddress"])
+	if len(tokenMinted) == 0 {
+		w.Write([]byte("[]"))
+		return
+	}
+
+	jsonResponse, jsonError := json.Marshal(tokenMinted)
 	if jsonError != nil {
 		log.Fatal("Unable to encode JSON")
 	}
